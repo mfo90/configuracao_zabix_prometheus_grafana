@@ -14,8 +14,6 @@ services:
       - zabbix-server-data:/var/lib/zabbix
     depends_on:
       - zabbix-db
-    networks:
-      - monitoring-net
 
   zabbix-web:
     image: zabbix/zabbix-web-nginx-pgsql:latest
@@ -31,8 +29,6 @@ services:
       - zabbix-web-data:/var/lib/zabbix
     depends_on:
       - zabbix-server
-    networks:
-      - monitoring-net
 
   zabbix-db:
     image: postgres:latest
@@ -42,23 +38,16 @@ services:
       POSTGRES_DB: zabbix
     volumes:
       - zabbix-db-data:/var/lib/postgresql/data
-    networks:
-      - monitoring-net
 
   zabbix-agent:
     image: zabbix/zabbix-agent:latest
     environment:
       ZBX_SERVER_HOST: zabbix-server
-      ZBX_HOSTNAME: zabbix-agent-${HOSTNAME}
-      ZBX_METADATA: "zabbix-agent"
+      ZBX_HOSTNAME: zabbix-agent
     ports:
       - "10050:10050"
     depends_on:
       - zabbix-server
-    networks:
-      - monitoring-net
-    volumes:
-      - ./custom_zabbix_agentd.conf:/etc/zabbix/zabbix_agentd.conf:ro
 
   prometheus:
     image: prom/prometheus:latest
@@ -69,8 +58,6 @@ services:
     volumes:
       - prometheus-data:/prometheus
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - monitoring-net
 
   grafana:
     image: grafana/grafana:latest
@@ -78,8 +65,6 @@ services:
       - "3000:3000"
     volumes:
       - grafana-storage:/var/lib/grafana
-    networks:
-      - monitoring-net
 
 volumes:
   zabbix-server-data:
@@ -87,7 +72,3 @@ volumes:
   zabbix-db-data:
   prometheus-data:
   grafana-storage:
-
-networks:
-  monitoring-net:
-    driver: bridge

@@ -9,4 +9,4 @@ scrape_configs:
   - job_name: 'zabbix'
     metrics_path: /metrics
     static_configs:
-      - targets: ['zabbix-agent:10050']
+      - targets: ['localhost:10050']

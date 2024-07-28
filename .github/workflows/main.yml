@@ -34,15 +34,6 @@ jobs:
         source: 'prometheus.yml'
         target: '~/deploy/'
 
-    - name: Copy Zabbix Agent config to server
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.SERVER_IP }}
-        username: ${{ secrets.SERVER_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: 'custom_zabbix_agentd.conf'
-        target: '~/deploy/'
-
     - name: Deploy Docker Compose
       uses: appleboy/ssh-action@master
       with:
