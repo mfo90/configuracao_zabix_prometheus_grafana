@@ -72,4 +72,3 @@ volumes:
   zabbix-db-data:
   prometheus-data:
   grafana-storage:
-  
