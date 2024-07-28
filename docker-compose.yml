@@ -58,7 +58,7 @@ services:
     networks:
       - monitoring-net
     volumes:
-      - ./custom_zabbix_agentd.conf:/etc/zabbix/zabbix_agentd.conf:ro
+      - ./custom_zabbix_agentd.conf:/etc/zabbix/zabbix_agentd.conf
 
   prometheus:
     image: prom/prometheus:latest
