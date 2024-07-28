@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   zabbix-server:
     image: zabbix/zabbix-server-pgsql:latest
@@ -50,14 +48,13 @@ services:
       - "10050:10050"
 
   zabbix-exporter:
-    image: djmaze/zabbix_exporter
+    image: cavaliercoder/zabbix-exporter:latest
     ports:
-      - "127.0.0.1:127:9116"
+      - "9116:9116"
     environment:
       - ZBX_URL=http://zabbix-web:8080
       - ZBX_USER=Admin
-      - ZBX_PASSWORD=M@th!*2024
-      - ZBX_HOST=zabbix-agent
+      - ZBX_PASS=M@th!*2024
     depends_on:
       - zabbix-agent
       - zabbix-web
