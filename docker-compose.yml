@@ -53,12 +53,12 @@ services:
       ZBX_METADATA: "zabbix-agent"
     ports:
       - "10050:10050"
-    volumes:
-      - ./custom_zabbix_agentd.conf:/etc/zabbix/zabbix_agentd.conf:ro
     depends_on:
       - zabbix-server
     networks:
       - monitoring-net
+    volumes:
+      - ./custom_zabbix_agentd.conf:/etc/zabbix/zabbix_agentd.conf:ro
 
   prometheus:
     image: prom/prometheus:latest
