@@ -49,12 +49,13 @@ services:
 
   prometheus:
     image: prom/prometheus:latest
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
-    depends_on:
-      - zabbix-agent
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    volumes:
+      - prometheus-data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
 
   grafana:
     image: grafana/grafana:latest
@@ -67,4 +68,5 @@ volumes:
   zabbix-server-data:
   zabbix-web-data:
   zabbix-db-data:
+  prometheus-data:
   grafana-storage:
