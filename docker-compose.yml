@@ -46,6 +46,21 @@ services:
       ZBX_HOSTNAME: zabbix-agent
     depends_on:
       - zabbix-server
+    ports:
+      - "10050:10050"
+
+  zabbix-exporter:
+    image: djmaze/zabbix_exporter
+    ports:
+      - "127.0.0.1:127:9116"
+    environment:
+      - ZBX_URL=http://zabbix-web:8080
+      - ZBX_USER=Admin
+      - ZBX_PASSWORD=M@th!*2024
+      - ZBX_HOST=zabbix-agent
+    depends_on:
+      - zabbix-agent
+      - zabbix-web
 
   prometheus:
     image: prom/prometheus:latest
