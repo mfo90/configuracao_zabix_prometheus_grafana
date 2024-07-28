@@ -94,4 +94,4 @@ volumes:
 
 networks:
   monitoring_network:
-    external: true
+    driver: bridge
