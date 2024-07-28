@@ -66,6 +66,12 @@ services:
     volumes:
       - grafana-storage:/var/lib/grafana
 
+  node-exporter:
+    image: prom/node-exporter:latest
+    ports:
+      - "9100:9100"
+    restart: unless-stopped
+
 volumes:
   zabbix-server-data:
   zabbix-web-data:
