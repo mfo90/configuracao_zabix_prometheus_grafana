@@ -13,22 +13,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: List files in repository
+      run: ls -la
+
     - name: Copy Docker Compose file to server
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.SERVER_IP }}
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: './docker-compose.yml'
-        target: '~/deploy/'
-
-    - name: Copy Prometheus config to server
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.SERVER_IP }}
-        username: ${{ secrets.SERVER_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: './prometheus.yml'
+        source: 'docker-compose.yml'
         target: '~/deploy/'
 
     - name: Deploy Docker Compose
