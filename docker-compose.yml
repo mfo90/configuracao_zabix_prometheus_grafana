@@ -8,7 +8,6 @@ services:
       POSTGRES_USER: zabbix
       POSTGRES_PASSWORD: zabbixpass
       POSTGRES_DB: zabbix
-      ZBX_STATSALLOWEDIP: 127.0.0.1/32
     ports:
       - "10051:10051"
     volumes:
@@ -50,20 +49,12 @@ services:
     depends_on:
       - zabbix-server
 
-  zabbix-exporter:
-    image: ghcr.io/shdubna/zabbix_exporter:latest
-    command:
-      - --zabbix_addr=zabbix-server
-      - --zabbix_port=10051
-    ports:
-      - "9051:9051"
-    depends_on:
-      - zabbix-server
-
   prometheus:
     image: prom/prometheus:latest
     ports:
       - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
     volumes:
       - prometheus-data:/prometheus
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
