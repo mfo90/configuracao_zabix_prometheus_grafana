@@ -13,7 +13,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Criar diretório para os arquivos de deploy, se não existir
+    - name: Criar diretório para  os arquivos de deploy, se não existir
       run: |
         if not exist C:\projects\gerenciamento mkdir C:\projects\gerenciamento
       shell: cmd
