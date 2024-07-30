@@ -13,9 +13,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: List files in repository
-      run: dir
-
     - name: Criar diretório para os arquivos de deploy, se não existir
       run: |
         if not exist C:\projects\gerenciamento mkdir C:\projects\gerenciamento
@@ -27,8 +24,14 @@ jobs:
         copy prometheus.yml C:\projects\gerenciamento\
       shell: cmd
 
+    - name: Criar a rede Docker, se não existir
+      run: |
+        docker network create monitoring_network || true
+      shell: cmd
+
     - name: Deploy Docker Compose
       run: |
+        cd C:\projects\gerenciamento
         docker-compose down
         docker-compose build --no-cache
         docker-compose up -d
