@@ -24,11 +24,6 @@ jobs:
         copy prometheus.yml C:\projects\gerenciamento\
       shell: cmd
 
-    - name: Criar a rede Docker, se não existir
-      run: |
-        docker network create monitoring_network || true
-      shell: cmd
-
     - name: Deploy Docker Compose
       run: |
         cd C:\projects\gerenciamento
