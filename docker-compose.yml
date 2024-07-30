@@ -40,6 +40,8 @@ services:
       POSTGRES_USER: zabbix
       POSTGRES_PASSWORD: zabbixpass
       POSTGRES_DB: zabbix
+    ports:
+      - "5434:5432"
     volumes:
       - zabbix-db-data:/var/lib/postgresql/data
     networks:
@@ -64,6 +66,7 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
     volumes:
+      - prometheus-data:/prometheus
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
       - monitoring_network
